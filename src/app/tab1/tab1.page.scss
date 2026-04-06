@@ -1,0 +1,48 @@
+ion-toolbar.compact-header {
+  --min-height: 44px;
+  --padding-top: 0;
+  --padding-bottom: 0;
+  
+  ion-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+}
+
+.data-label {
+  font-size: 0.75rem;
+  color: var(--ion-color-medium);
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.data-value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ion-color-dark);
+}
+
+.total-avg-container {
+  border-top: 1px solid var(--ion-color-step-100, #e0e0e0);
+  background: var(--ion-color-step-50, #f8f8f8);
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.avg-label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--ion-color-medium);
+}
+
+.avg-value {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--ion-color-primary);
+}

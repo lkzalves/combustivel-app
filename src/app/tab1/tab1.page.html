@@ -1,0 +1,96 @@
+<ion-header>
+  <ion-toolbar color="primary" class="compact-header">
+    <ion-title>
+      Registrar Valor
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  @if (records.length === 0) {
+    <div class="ion-padding" style="text-align: center; margin-top: 50px; color: gray;">
+      Nenhum registro encontrado. Clique em + para adicionar.
+    </div>
+  }
+
+  @for (group of groupedRecords; track group.monthYear) {
+    <ion-item-divider sticky="true" color="light" style="--padding-bottom: 2px;">
+      <ion-label color="medium" style="font-size: 0.85rem; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase;">
+        {{ group.monthYear }}
+      </ion-label>
+    </ion-item-divider>
+
+    @for (record of group.items; track record) {
+      <ion-item-sliding #slidingItem>
+        <ion-item lines="none" style="--background: transparent; --inner-padding-end: 0; --padding-start: 0;">
+          <ion-card style="width: 100%; margin: 8px 16px;">
+            <ion-card-header style="padding-bottom: 8px;">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <ion-card-title style="color: var(--ion-color-primary, #3880ff); font-weight: bold; font-size: 1.1rem; text-transform: uppercase;">
+                  <ion-icon name="car-sport-outline" style="vertical-align: text-bottom; margin-right: 4px;"></ion-icon>
+                  {{ record.carModel }}
+                </ion-card-title>
+                <ion-note style="font-size: 0.85rem; font-weight: 500;">
+                  {{ record.date | date:'dd/MM/yyyy' }}
+                </ion-note>
+              </div>
+            </ion-card-header>
+            
+            <ion-card-content>
+              <ion-grid class="ion-no-padding">
+                <ion-row>
+                  <!-- Coluna 1: Litros e Odômetro -->
+                  <ion-col size="6">
+                    <div class="data-label">Abastecido</div>
+                    <div class="data-value">{{ record.liters }} <small>L</small></div>
+                    
+                    <div class="data-label" style="margin-top: 10px;">Odômetro</div>
+                    <div class="data-value">{{ record.km }} <small>KM</small></div>
+                  </ion-col>
+                  
+                  <!-- Coluna 2: Valor Pago e Valor/L -->
+                  <ion-col size="6">
+                    <div class="data-label">Total Pago</div>
+                    <div class="data-value">R$ {{ record.value | number:'1.2-2' }}</div>
+                    
+                    <div class="data-label" style="margin-top: 10px;">Valor p/ Litro</div>
+                    <div class="data-value">R$ {{ (record.value / record.liters) | number:'1.2-2' }}</div>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+
+              <!-- Média KM/L -->
+              <div class="total-avg-container">
+                <div class="avg-label">
+                  <ion-icon name="trending-up-outline" style="vertical-align: middle; margin-right: 4px;"></ion-icon>
+                  Média de Consumo
+                </div>
+                <div class="avg-value">
+                  {{ (record.km / record.liters) | number:'1.1-1' }} <small>KM/L</small>
+                </div>
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </ion-item>
+
+        <ion-item-options side="end">
+          <ion-item-option (click)="openAddRecordModal(record); slidingItem.close()">
+            <ion-icon slot="icon-only" name="create"></ion-icon>
+          </ion-item-option>
+          <ion-item-option color="danger" (click)="deleteRecord(record, slidingItem)">
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    }
+  }
+
+  <!-- Botão para adicionar registro -->
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button (click)="openAddRecordModal()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
+

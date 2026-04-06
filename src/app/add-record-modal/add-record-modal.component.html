@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Novo Registro</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancel()">Cancelar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-content>
+      <!-- Data -->
+      <ion-input
+        [(ngModel)]="date"
+        class="ion-margin-bottom"
+        type="date"
+        label="Data do Abastecimento"
+        labelPlacement="floating"
+      ></ion-input>
+
+      <!-- Modelo do Carro (Action Sheet) -->
+      <ion-select [(ngModel)]="carModel" class="ion-margin-bottom" label="Modelo do Carro" labelPlacement="floating" interface="action-sheet" placeholder="Selecione o modelo">
+        <ion-select-option value="Celta 2014">Celta 2014</ion-select-option>
+        <ion-select-option value="Uno 2014">Uno 2014</ion-select-option>
+      </ion-select>
+
+      
+      <!-- Litros -->
+      <ion-input
+        [(ngModel)]="liters"
+        class="ion-margin-bottom"
+        type="number"
+        label="Quantidade de Litros"
+        labelPlacement="floating"
+        [counter]="true"
+        maxlength="20"
+        placeholder="Ex: 40.5"
+      ></ion-input>
+
+      <!-- KM anterior -->
+      <ion-input
+        [(ngModel)]="km"
+        class="ion-margin-bottom"
+        type="number"
+        label="Odômetro (KM atual)"
+        labelPlacement="floating"
+        [counter]="true"
+        maxlength="20"
+        placeholder="Ex: 12500"
+      ></ion-input>
+
+      <!-- Valor pago -->
+      <ion-input
+        id="custom-input"
+        [(ngModel)]="value"
+        type="number"
+        label="Valor Pago (R$)"
+        labelPlacement="floating"
+        [counter]="true"
+        maxlength="20"
+        [counterFormatter]="customCounterFormatter"
+        placeholder="Ex: 200.00"
+      ></ion-input>
+
+      <div class="ion-margin-top">
+         <ion-button expand="block" (click)="confirm()">Salvar</ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
